@@ -45,10 +45,10 @@
     bgView.backgroundColor = [UIColor clearColor];
     UITapGestureRecognizer *tapG = [[UITapGestureRecognizer alloc] init];
     tapG.delegate = self;
-    [bgView addGestureRecognizer:[tapG autorelease]];
+    [bgView addGestureRecognizer:tapG];
     [bgView setUserInteractionEnabled:YES];
     
-    [self.view addSubview:[bgView autorelease]];
+    [self.view addSubview:bgView];
     
     int width = 390;
     int height = 300;
@@ -69,7 +69,7 @@
     if(self.endDate) {
         [calView setEndDate:endDate];
     }
-    [self.view addSubview:[calView autorelease]];
+    [self.view addSubview:calView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -78,25 +78,23 @@
 
 - (void)setStartDate:(NSDate *)sDate {
     if(startDate) {
-        [startDate release];
         startDate = nil;
     }
-    startDate = [sDate retain];
+    startDate = sDate;
     [calView setStartDate:startDate];
 }
 
 - (void)setEndDate:(NSDate *)eDate {
     if(endDate) {
-        [endDate release];
         endDate = nil;
     }
-    endDate = [eDate retain];
+    endDate = eDate;
     [calView setEndDate:endDate];
 }
 
 - (void)removeCalView {
-    startDate = [[calView getStartDate] retain];
-    endDate = [[calView getEndDate] retain];
+    startDate = [calView getStartDate];
+    endDate = [calView getEndDate];
     
     //NSLog(@"startDate:%@ endDate:%@", startDate.description, endDate.description);
     
@@ -134,7 +132,7 @@
         int height = 300;
         
         calView = [[OCCalendarView alloc] initAtPoint:point withFrame:CGRectMake(point.x - width*0.5, point.y - 31.4, width, height)];
-        [self.view addSubview:[calView autorelease]];
+        [self.view addSubview:calView];
     }
     
     return YES;
@@ -145,10 +143,5 @@
     return YES;
 }
 
-- (void)dealloc {
-    self.startDate = nil;
-    self.endDate = nil;
-    [super dealloc];
-}
 
 @end

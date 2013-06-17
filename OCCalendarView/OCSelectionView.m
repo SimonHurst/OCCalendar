@@ -56,18 +56,18 @@
         
         UIColor* color = [UIColor colorWithRed: 0.82 green: 0.08 blue: 0 alpha: 0.86];
         UIColor* color2 = [UIColor colorWithRed: 0.66 green: 0.02 blue: 0.04 alpha: 0.88];
-        NSArray* gradient3Colors = [NSArray arrayWithObjects: 
-                                    (id)color.CGColor, 
-                                    (id)color2.CGColor, nil];
+        NSArray* gradient3Colors = @[(id)color.CGColor, 
+                                    (id)color2.CGColor];
         CGFloat gradient3Locations[] = {0, 1};
-        CGGradientRef gradient3 = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradient3Colors, gradient3Locations);
+        CGGradientRef gradient3 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient3Colors, gradient3Locations);
         
         int tempStart = MIN(startCellY, endCellY);
         int tempEnd = MAX(startCellY, endCellY);
+        
         for(int i = tempStart; i <= tempEnd; i++) {
             //// selectedRect Drawing
-            int thisRowEndCell;
-            int thisRowStartCell;
+            int thisRowEndCell = 0;
+            int thisRowStartCell = 0;
             if(startCellY == i) {
                 thisRowStartCell = startCellX;
                 if (startCellY > endCellY) {

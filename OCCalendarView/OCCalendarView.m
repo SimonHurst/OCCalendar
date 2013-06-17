@@ -167,7 +167,6 @@
 	[dateParts setYear:year];
 	[dateParts setDay:1];
 	NSDate *dateOnFirst = [calendar dateFromComponents:dateParts];
-	[dateParts release];
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:dateOnFirst];
 	int weekdayOfFirst = [weekdayComponents weekday];	
     
@@ -198,7 +197,7 @@
         }
     }
     
-    NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setDay:day];
     [comps setMonth:month];
     [comps setYear:year];
@@ -224,7 +223,6 @@
 	[dateParts setYear:year];
 	[dateParts setDay:1];
 	NSDate *dateOnFirst = [calendar dateFromComponents:dateParts];
-	[dateParts release];
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:dateOnFirst];
 	int weekdayOfFirst = [weekdayComponents weekday];	
     
@@ -256,7 +254,7 @@
         }
     }
         
-    NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
     [comps setDay:day];
     [comps setMonth:month];
     [comps setYear:year];
@@ -286,7 +284,6 @@
 	[dateParts setYear:year];
 	[dateParts setDay:1];
 	NSDate *dateOnFirst = [calendar dateFromComponents:dateParts];
-	[dateParts release];
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:dateOnFirst];
 	int weekdayOfFirst = [weekdayComponents weekday];	
     
@@ -340,7 +337,6 @@
 	[dateParts setYear:year];
 	[dateParts setDay:1];
 	NSDate *dateOnFirst = [calendar dateFromComponents:dateParts];
-	[dateParts release];
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:dateOnFirst];
 	int weekdayOfFirst = [weekdayComponents weekday];	
     
@@ -412,11 +408,10 @@
     UIColor* boxStroke = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.59];
     
     //// Gradient Declarations
-    NSArray* gradient2Colors = [NSArray arrayWithObjects:
-                                (id)darkColor.CGColor,
-                                (id)lightColor.CGColor, nil];
+    NSArray* gradient2Colors = @[(id)darkColor.CGColor,
+                                (id)lightColor.CGColor];
     CGFloat gradient2Locations[] = {0, 1};
-    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradient2Colors, gradient2Locations);
+    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
     
     //// Shadow Declarations
     CGColorRef bigBoxInnerShadow = bigBoxInnerShadowColor.CGColor;
@@ -608,14 +603,14 @@
         CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2);
         CGRect dayHeaderFrame = CGRectMake(63+i*hDiff, 75, 30, 14); 
         [[UIColor whiteColor] setFill];
-        [((NSString *)[dayTitles objectAtIndex:i]) drawInRect: dayHeaderFrame withFont: [UIFont fontWithName: @"Helvetica" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
+        [((NSString *)dayTitles[i]) drawInRect: dayHeaderFrame withFont: [UIFont fontWithName: @"Helvetica" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
         CGContextRestoreGState(context);
     }
     
     int month = currentMonth;
     int year = currentYear;
     
-	NSString *monthTitle = [NSString stringWithFormat:@"%@ %d", [monthTitles objectAtIndex:(month - 1)], year];
+	NSString *monthTitle = [NSString stringWithFormat:@"%@ %d", monthTitles[(month - 1)], year];
     
     //// Month Header Drawing
     CGContextSaveGState(context);
@@ -671,11 +666,10 @@
     UIColor* boxStroke = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.59];
     
     //// Gradient Declarations
-    NSArray* gradient2Colors = [NSArray arrayWithObjects:
-                                (id)darkColor.CGColor,
-                                (id)lightColor.CGColor, nil];
+    NSArray* gradient2Colors = @[(id)darkColor.CGColor,
+                                (id)lightColor.CGColor];
     CGFloat gradient2Locations[] = {0, 1};
-    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradient2Colors, gradient2Locations);
+    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
     
     //// Shadow Declarations
     CGColorRef bigBoxInnerShadow = bigBoxInnerShadowColor.CGColor;
@@ -827,14 +821,14 @@
         CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2);
         CGRect dayHeaderFrame = CGRectMake(60+i*hDiff, 75, 30, 14);
         [[UIColor whiteColor] setFill];
-        [((NSString *)[dayTitles objectAtIndex:i]) drawInRect: dayHeaderFrame withFont: [UIFont fontWithName: @"Helvetica" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
+        [((NSString *)dayTitles[i]) drawInRect: dayHeaderFrame withFont: [UIFont fontWithName: @"Helvetica" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
         CGContextRestoreGState(context);
     }
     
     int month = currentMonth;
     int year = currentYear;
     
-	NSString *monthTitle = [NSString stringWithFormat:@"%@ %d", [monthTitles objectAtIndex:(month - 1)], year];
+	NSString *monthTitle = [NSString stringWithFormat:@"%@ %d", monthTitles[(month - 1)], year];
     
     //// Month Header Drawing
     CGContextSaveGState(context);
@@ -872,13 +866,5 @@
 }
 
 
-- (void)dealloc {
-    
-    [selectionView release];
-    [calendar release];
-    
-    [super dealloc];
-    
-}
 
 @end

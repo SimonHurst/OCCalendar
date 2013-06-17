@@ -20,7 +20,7 @@
 @end
 
 @interface OCCalendarViewController : UIViewController <UIGestureRecognizerDelegate> {
-    id <OCCalendarDelegate> delegate;
+    id <OCCalendarDelegate> __weak delegate;
     
     UILabel *toolTipLabel;
     OCCalendarView *calView;
@@ -36,9 +36,9 @@
     OCSelectionMode selectionMode;
 }
 
-@property (nonatomic, assign) id <OCCalendarDelegate> delegate;
-@property (nonatomic, retain) NSDate *startDate;
-@property (nonatomic, retain) NSDate *endDate;
+@property (nonatomic, weak) id <OCCalendarDelegate> delegate;
+@property (nonatomic, strong) NSDate *startDate;
+@property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) OCSelectionMode selectionMode;
 
 - (id)initAtPoint:(CGPoint)point inView:(UIView *)v;
